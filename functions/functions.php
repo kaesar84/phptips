@@ -4,11 +4,20 @@
 // posicionado al inicio del archivo
 declare(strict_types=1);
 
-const API_URL = 'https://whenisthenextmcufilm.com/api';
-# https://github.com/DiljotSG/MCU-Countdown/tree/develop
+function render_template(string $template, array $data = [])
+{
+    // ?? Como le pasamos el data al template?
+    // convierte todos los valores del array asociativo en variables
+    // $data = ['title'=> 'Hola'];
+    // -> extract($data)
+    // $title ="Hola";
+
+    extract($data);
+    require "templates/$template.php";
+}
 
 
-function get_data(string $url):array
+function get_data(string $url): array
 {
     // Solo hacer get
     // global $variable -> para acceder a una variable global, fuera de la funcion
@@ -18,9 +27,9 @@ function get_data(string $url):array
 }
 
 
-function get_until_message(int $days):string
+function get_until_message(int $days): string
 {
-    return match(true){
+    return match (true) {
         $days < 0   => "Ya se estrenó",
         $days === 0 => "Hoy es el estreno",
         $days === 1 => "Se estrena mañana",
